@@ -7,7 +7,14 @@ test('returns all icons in array', function (t) {
   t.plan(2)
   var icons = androidIcons()
   t.ok(Array.isArray(icons), 'returned an array')
-  t.equal(icons.length, 5, '5 icons returned')
+  t.equal(icons.length, 6, '6 icons returned')
+})
+
+test('returns icon for size 36 as Number', function (t) {
+  t.plan(2)
+  var icon = androidIcons({size: 36})
+  t.ok(icon.name === 'ldpi.png', 'icon name correct')
+  t.ok(icon.width === 36, 'icon width correct')
 })
 
 test('returns icon for size 48 as Number', function (t) {
@@ -41,6 +48,7 @@ test('returns icon for size xhdpi', function (t) {
 test('cli returns all icons as csv', function (t) {
   t.plan(1)
   var expected = [
+    'ldpi.png,36',
     'mdpi.png,48',
     'hdpi.png,72',
     'xhdpi.png,96',
@@ -83,6 +91,7 @@ test('cli returns icon for size', function (t) {
 test('cli returns all icons as csv', function (t) {
   t.plan(1)
   var expected = [
+    'ldpi.png,36',
     'mdpi.png,48',
     'hdpi.png,72',
     'xhdpi.png,96',
@@ -124,7 +133,7 @@ test('cli returns icon for size xhdpi', function (t) {
 
 test('cli returns all icons as json w/abbreviated flags', function (t) {
   t.plan(3)
-  var expected = '[{"name":"mdpi.png","width":48},{"name":"hdpi.png","width":72},{"name":"xhdpi.png","width":96},{"name":"xxhdpi.png","width":144},{"name":"xxxhdpi.png","width":192}]\n'
+  var expected = '[{"name":"ldpi.png","width":36},{"name":"mdpi.png","width":48},{"name":"hdpi.png","width":72},{"name":"xhdpi.png","width":96},{"name":"xxhdpi.png","width":144},{"name":"xxxhdpi.png","width":192}]\n'
   exec('./bin/android-icons.js --forma json', function (error, stdout, stderr) {
     var err = error || stderr
     if (err) {
